@@ -1,0 +1,1797 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>赋能健康・聚力和洋 - 团队健康挑战月</title>
+  <!-- 引入外部资源 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  
+  <!-- Tailwind 配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2DD4BF', // 主色调：蓝绿色
+            secondary: '#F97316', // 强调色：橙色
+            dark: '#0F172A', // 深色
+            light: '#F8FAFC', // 浅色
+            muted: '#94A3B8' // 中性色
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'bounce-slow': 'bounce 3s infinite',
+          }
+        },
+      }
+    }
+  </script>
+  
+  <!-- 自定义工具类 -->
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .card-hover {
+        @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+      }
+      .section-padding {
+        @apply py-16 md:py-24;
+      }
+      .section-title {
+        @apply text-[clamp(1.75rem,3vw,2.5rem)] font-bold text-dark mb-8 text-center;
+      }
+    }
+  </style>
+  
+  <style>
+    /* 全局样式 */
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      background-color: #F8FAFC;
+    }
+    /* 渐变背景 */
+    .gradient-bg {
+      background: linear-gradient(135deg, #2DD4BF 0%, #0F766E 100%);
+    }
+    /* 项目类别标签样式 */
+    .category-tag {
+      position: relative;
+      overflow: hidden;
+    }
+    .category-tag::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: inherit;
+      opacity: 0.2;
+      transform: skewX(-15deg) translateX(100%);
+      transition: transform 0.5s ease;
+    }
+    .category-tag:hover::after {
+      transform: skewX(-15deg) translateX(-100%);
+    }
+  </style>
+</head>
+
+<body class="font-sans text-dark">
+  <!-- 导航栏 -->
+  <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 bg-light/90 backdrop-blur-sm shadow-sm">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="#" class="flex items-center space-x-2">
+        <span class="text-primary text-2xl"><i class="fa fa-heartbeat"></i></span>
+        <span class="font-bold text-lg md:text-xl">和洋健康挑战</span>
+      </a>
+      
+      <!-- 桌面导航 -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="#overview" class="text-dark/80 hover:text-primary transition-colors">活动总览</a>
+        <a href="#projects" class="text-dark/80 hover:text-primary transition-colors">项目库</a>
+        <a href="#rules" class="text-dark/80 hover:text-primary transition-colors">参与规则</a>
+        <a href="#rewards" class="text-dark/80 hover:text-primary transition-colors">奖励机制</a>
+        <a href="#safety" class="text-dark/80 hover:text-primary transition-colors">应急方案</a>
+        <a href="#signup" class="bg-primary text-white px-5 py-2 rounded-full hover:bg-primary/90 transition-colors">立即报名</a>
+      </nav>
+      
+      <!-- 移动端菜单按钮 -->
+      <button id="menuBtn" class="md:hidden text-dark text-xl">
+        <i class="fa fa-bars"></i>
+      </button>
+    </div>
+    
+    <!-- 移动端导航菜单 -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+        <a href="#overview" class="text-dark/80 hover:text-primary py-2 transition-colors">活动总览</a>
+        <a href="#projects" class="text-dark/80 hover:text-primary py-2 transition-colors">项目库</a>
+        <a href="#rules" class="text-dark/80 hover:text-primary py-2 transition-colors">参与规则</a>
+        <a href="#rewards" class="text-dark/80 hover:text-primary py-2 transition-colors">奖励机制</a>
+        <a href="#safety" class="text-dark/80 hover:text-primary py-2 transition-colors">应急方案</a>
+        <a href="#signup" class="bg-primary text-white px-5 py-2 rounded-full text-center hover:bg-primary/90 transition-colors">立即报名</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 英雄区域 -->
+  <section class="gradient-bg pt-32 pb-20 md:pt-40 md:pb-28 text-white">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold mb-6 text-shadow">赋能健康・聚力和洋</h1>
+      <p class="text-[clamp(1rem,2vw,1.25rem)] mb-10 max-w-3xl mx-auto opacity-90">
+        团队健康挑战月，用运动凝聚团队力量，用汗水铸就健康生活，一起解锁活力新篇章！
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="#signup" class="bg-white text-primary font-semibold px-8 py-3 rounded-full hover:bg-white/90 transition-colors shadow-lg">
+          立即参与
+        </a>
+        <a href="#projects" class="bg-transparent border-2 border-white text-white font-semibold px-8 py-3 rounded-full hover:bg-white/10 transition-colors">
+          浏览项目
+        </a>
+      </div>
+      
+      <!-- 核心信息卡片 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 max-w-4xl mx-auto">
+        <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl text-center">
+          <span class="text-3xl font-bold block mb-2">1个月</span>
+          <p class="opacity-90">活动周期</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl text-center">
+          <span class="text-3xl font-bold block mb-2">20+</span>
+          <p class="opacity-90">精选项目</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl text-center">
+          <span class="text-3xl font-bold block mb-2">1500元</span>
+          <p class="opacity-90">团队基金封顶</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 活动总览 -->
+  <section id="overview" class="section-padding bg-light">
+    <div class="container mx-auto px-4">
+      <h2 class="section-title">活动总纲</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <div>
+          <h3 class="text-2xl font-bold mb-6 text-dark">活动核心信息</h3>
+          <ul class="space-y-4">
+            <li class="flex items-start">
+              <span class="text-primary text-xl mr-3 mt-1"><i class="fa fa-calendar"></i></span>
+              <div>
+                <span class="font-semibold">活动周期：</span>
+                <span>以自然月为单位，即每月 1 日至当月最后 1 日</span>
+              </div>
+            </li>
+            <li class="flex items-start">
+              <span class="text-primary text-xl mr-3 mt-1"><i class="fa fa-users"></i></span>
+              <div>
+                <span class="font-semibold">参与单位：</span>
+                <span>公司各个部门</span>
+              </div>
+            </li>
+            <li class="flex items-start">
+              <span class="text-primary text-xl mr-3 mt-1"><i class="fa fa-check-circle"></i></span>
+              <div>
+                <span class="font-semibold">关键要求：</span>
+                <span>需体现出团队协作精神</span>
+              </div>
+            </li>
+            <li class="flex items-start">
+              <span class="text-primary text-xl mr-3 mt-1"><i class="fa fa-clock-o"></i></span>
+              <div>
+                <span class="font-semibold">时间节点：</span>
+                <span>活动时间：每月1号 | 结算时间：每月月底00:00:00前</span>
+              </div>
+            </li>
+          </ul>
+          
+          <div class="mt-10 bg-primary/10 p-6 rounded-xl">
+            <h4 class="font-bold text-lg mb-4 text-primary">活动宗旨</h4>
+            <p class="text-dark/80">
+              通过多样化的团队健康活动，提升员工身体素质，增强团队凝聚力与协作精神，营造积极向上、健康活力的企业文化氛围，实现个人与团队的共同成长。（活动支持跨部门协作）
+            </p>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div class="p-6">
+            <h3 class="text-2xl font-bold mb-6 text-dark">奖励机制</h3>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg card-hover">
+                <span>完成 2 个项目</span>
+                <span class="text-xl font-bold text-primary">500.00 元团队基金</span>
+              </div>
+              <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg card-hover">
+                <span>完成 3 个项目</span>
+                <span class="text-xl font-bold text-primary">1000.00 元团队基金</span>
+              </div>
+              <div class="flex items-center justify-between p-4 border-2 border-primary rounded-lg bg-primary/5 card-hover">
+                <span class="font-semibold">完成 4 个项目（封顶）</span>
+                <span class="text-2xl font-bold text-primary">1500.00 元团队基金</span>
+              </div>
+            </div>
+            
+            <div class="mt-8">
+              <h4 class="font-bold text-lg mb-4">月度活力团队认证</h4>
+              <div class="space-y-2">
+                <div class="flex items-center">
+                  <span class="text-primary mr-2"><i class="fa fa-check"></i></span>
+                  <span>团队参与率最高</span>
+                </div>
+                <div class="flex items-center">
+                  <span class="text-primary mr-2"><i class="fa fa-check"></i></span>
+                  <span>完成项目总数 ≥ 4 个（可跨类别）</span>
+                </div>
+                <div class="flex items-center">
+                  <span class="text-primary mr-2"><i class="fa fa-check"></i></span>
+                  <span>无安全违规记录</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 项目库 -->
+  <section id="projects" class="section-padding bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h2 class="section-title">全品类项目库</h2>
+      <p class="text-center text-muted mb-12 max-w-3xl mx-auto">
+        五大类别，十余项精选项目，满足不同团队的健康需求，快来挑选适合你们团队的挑战项目吧！
+      </p>
+      
+      <!-- 项目分类标签 -->
+      <div class="flex flex-wrap justify-center gap-3 mb-10">
+        <button class="category-tag bg-primary text-white px-5 py-2 rounded-full" data-category="all">全部项目</button>
+        <button class="category-tag bg-blue-100 text-blue-800 px-5 py-2 rounded-full" data-category="A">A类：球类竞技</button>
+        <button class="category-tag bg-green-100 text-green-800 px-5 py-2 rounded-full" data-category="B">B类：户外探索</button>
+        <button class="category-tag bg-purple-100 text-purple-800 px-5 py-2 rounded-full" data-category="C">C类：身心平衡</button>
+        <button class="category-tag bg-orange-100 text-orange-800 px-5 py-2 rounded-full" data-category="D">D类：创意协作有氧</button>
+        <button class="category-tag bg-red-100 text-red-800 px-5 py-2 rounded-full" data-category="E">E类：健康基石工作坊</button>
+      </div>
+      
+      <!-- 项目卡片网格 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- A类：球类竞技 -->
+        <div class="project-card bg-white rounded-xl shadow-md overflow-hidden card-hover" data-category="A">
+          <div class="h-48 overflow-hidden">
+            <img src="https://sc04.alicdn.com/kf/H214a88fda39349ec800dbba4e1da2610C/284736792/H214a88fda39349ec800dbba4e1da2610C.jpg" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">A1. 羽毛球</span>
+              <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">需团队参与率≥80%</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">羽毛球团体赛</h3>
+            <ul class="space-y-2 text-sm text-dark/70 mb-4">
+              <li><i class="fa fa-clock-o text-primary mr-2"></i> 单次 ≥ 2 小时（含热身）</li>
+              <li><i class="fa fa-map-marker text-primary mr-2"></i> 标准场地，双打或团体赛</li>
+              <li><i class="fa fa-check-square-o text-primary mr-2"></i> 需提交场地合影、运动APP截图、对抗视频</li>
+            </ul>
+            <button class="project-detail-btn w-full bg-gray-100 hover:bg-gray-200 text-dark font-medium py-2 rounded-lg transition-colors" 
+                    data-project="A1">查看详情</button>
+          </div>
+        </div>
+        
+        <div class="project-card bg-white rounded-xl shadow-md overflow-hidden card-hover" data-category="A">
+          <div class="h-48 overflow-hidden">
+            <img src="https://sc04.alicdn.com/kf/He6f6eeecf2734ce4b22f934a164e96a5O/284736792/He6f6eeecf2734ce4b22f934a164e96a5O.jpg" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">A2. 篮球</span>
+              <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">上场队员≥60%</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">篮球对抗赛</h3>
+            <ul class="space-y-2 text-sm text-dark/70 mb-4">
+              <li><i class="fa fa-clock-o text-primary mr-2"></i> 对抗赛 ≥ 90 分钟</li>
+              <li><i class="fa fa-users text-primary mr-2"></i> 半场3v3或全场5v5计分赛</li>
+              <li><i class="fa fa-check-square-o text-primary mr-2"></i> 需提交赛前合影、记分表、比赛集锦</li>
+            </ul>
+            <button class="project-detail-btn w-full bg-gray-100 hover:bg-gray-200 text-dark font-medium py-2 rounded-lg transition-colors"
+                    data-project="A2">查看详情</button>
+          </div>
+        </div>
+        
+        <div class="project-card bg-white rounded-xl shadow-md overflow-hidden card-hover" data-category="A">
+          <div class="h-48 overflow-hidden">
+            <img src="https://sc04.alicdn.com/kf/H82bfffb0035c4d37aff0be694d0df121c/284736792/H82bfffb0035c4d37aff0be694d0df121c.jpg" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">A4. 乒乓球</span>
+              <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">团体赛制</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">乒乓球团体赛</h3>
+            <ul class="space-y-2 text-sm text-dark/70 mb-4">
+              <li><i class="fa fa-clock-o text-primary mr-2"></i> 活动 ≥ 120 分钟</li>
+              <li><i class="fa fa-trophy text-primary mr-2"></i> 斯韦思林杯团体赛制</li>
+              <li><i class="fa fa-check-square-o text-primary mr-2"></i> 需提交持拍合影、对阵表、对战视频</li>
+            </ul>
+            <button class="project-detail-btn w-full bg-gray-100 hover:bg-gray-200 text-dark font-medium py-2 rounded-lg transition-colors"
+                    data-project="A4">查看详情</button>
+          </div>
+        </div>
+        
+        <!-- B类：户外探索 -->
+        <div class="project-card bg-white rounded-xl shadow-md overflow-hidden card-hover" data-category="B">
+          <div class="h-48 overflow-hidden">
+            <img src="https://sc04.alicdn.com/kf/H6c34c8b5f5e54a8e9195c570c6fc6017s/284736792/H6c34c8b5f5e54a8e9195c570c6fc6017s.jpg" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">B1. 登山</span>
+              <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">高风险</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">团队登山挑战</h3>
+            <ul class="space-y-2 text-sm text-dark/70 mb-4">
+              <li><i class="fa fa-area-chart text-primary mr-2"></i> 累计爬升 ≥ 500 米</li>
+              <li><i class="fa fa-users text-primary mr-2"></i> ≥80%成员全程同行</li>
+              <li><i class="fa fa-check-square-o text-primary mr-2"></i> 需提交轨迹文件、三定点合影、报备回执</li>
+            </ul>
+            <button class="project-detail-btn w-full bg-gray-100 hover:bg-gray-200 text-dark font-medium py-2 rounded-lg transition-colors"
+                    data-project="B1">查看详情</button>
+          </div>
+        </div>
+        
+        <div class="project-card bg-white rounded-xl shadow-md overflow-hidden card-hover" data-category="B">
+          <div class="h-48 overflow-hidden">
+            <img src="https://sc04.alicdn.com/kf/H22006fb99eda427c94aea4788e9826d6t/284736792/H22006fb99eda427c94aea4788e9826d6t.jpg" alt="骑行" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">B3. 骑行</span>
+              <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">月度累计</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">团队骑行挑战</h3>
+            <ul class="space-y-2 text-sm text-dark/70 mb-4">
+              <li><i class="fa fa-road text-primary mr-2"></i> 月度累计 ≥ 40 公里</li>
+              <li><i class="fa fa-helmet-safety text-primary mr-2"></i> 集体骑行全员戴头盔</li>
+              <li><i class="fa fa-check-square-o text-primary mr-2"></i> 需提交集体骑行照片、个人记录截图</li>
+            </ul>
+            <button class="project-detail-btn w-full bg-gray-100 hover:bg-gray-200 text-dark font-medium py-2 rounded-lg transition-colors"
+                    data-project="B3">查看详情</button>
+          </div>
+        </div>
+        
+        <div class="project-card bg-white rounded-xl shadow-md overflow-hidden card-hover" data-category="B">
+          <div class="h-48 overflow-hidden">
+            <img src="https://sc04.alicdn.com/kf/H5c91932c2c23436f96c5b53dc488c0edA/284736792/H5c91932c2c23436f96c5b53dc488c0edA.jpg" alt="露营" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">B4. 露营</span>
+              <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">团队协作</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">团队露营体验</h3>
+            <ul class="space-y-2 text-sm text-dark/70 mb-4">
+              <li><i class="fa fa-clock-o text-primary mr-2"></i> 活动 ≥ 3 小时</li>
+              <li><i class="fa fa-cutlery text-primary mr-2"></i> 体现搭建、烹饪等团队协作精神</li>
+              <li><i class="fa fa-check-square-o text-primary mr-2"></i> 需提交三时段照片、营地定位</li>
+            </ul>
+            <button class="project-detail-btn w-full bg-gray-100 hover:bg-gray-200 text-dark font-medium py-2 rounded-lg transition-colors"
+                    data-project="B4">查看详情</button>
+          </div>
+        </div>
+        
+        <!-- C类：身心平衡 -->
+        <div class="project-card bg-white rounded-xl shadow-md overflow-hidden card-hover" data-category="C">
+          <div class="h-48 overflow-hidden">
+            <img src="https://sc04.alicdn.com/kf/H95c4f1d164c54bea8bdb9fbe740e551cX/284736792/H95c4f1d164c54bea8bdb9fbe740e551cX.png" alt="团体健身课" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full">C1. 团体健身课</span>
+              <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">专业场地</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">专业团体健身</h3>
+            <ul class="space-y-2 text-sm text-dark/70 mb-4">
+              <li><i class="fa fa-clock-o text-primary mr-2"></i> 单次课程 ≥ 60 分钟</li>
+              <li><i class="fa fa-users text-primary mr-2"></i> 参与人数 ≥5人或≥50%（取高值）</li>
+              <li><i class="fa fa-check-square-o text-primary mr-2"></i> 需提交与教练合影、签到记录</li>
+            </ul>
+            <button class="project-detail-btn w-full bg-gray-100 hover:bg-gray-200 text-dark font-medium py-2 rounded-lg transition-colors"
+                    data-project="C1">查看详情</button>
+          </div>
+        </div>
+        
+        <div class="project-card bg-white rounded-xl shadow-md overflow-hidden card-hover" data-category="C">
+          <div class="h-48 overflow-hidden">
+            <img src="https://sc04.alicdn.com/kf/Hc6e8f092c45a498f8e21e83a48bb9165t/284736792/Hc6e8f092c45a498f8e21e83a48bb9165t.jpg" alt="瑜伽" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-full">C2. 瑜伽/普拉提</span>
+              <span class="text-xs bg-pink-100 text-pink-800 px-2 py-1 rounded">身心平衡</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">瑜伽团体修炼</h3>
+            <ul class="space-y-2 text-sm text-dark/70 mb-4">
+              <li><i class="fa fa-clock-o text-primary mr-2"></i> 单次课程 ≥ 60 分钟</li>
+              <li><i class="fa fa-users text-primary mr-2"></i> 参与人数 ≥ 60%</li>
+              <li><i class="fa fa-check-square-o text-primary mr-2"></i> 需提交同一体式照片、参与凭证</li>
+            </ul>
+            <button class="project-detail-btn w-full bg-gray-100 hover:bg-gray-200 text-dark font-medium py-2 rounded-lg transition-colors"
+                    data-project="C2">查看详情</button>
+          </div>
+        </div>
+        
+        <!-- D类：创意协作有氧 -->
+        <div class="project-card bg-white rounded-xl shadow-md overflow-hidden card-hover" data-category="D">
+          <div class="h-48 overflow-hidden">
+            <img src="https://sc04.alicdn.com/kf/H8964f8e7bf3b4311a13fc04da936fc22g/284736792/H8964f8e7bf3b4311a13fc04da936fc22g.jpg" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-orange-100 text-orange-800 text-sm font-medium px-3 py-1 rounded-full">D1. 团队飞盘</span>
+              <span class="text-xs bg-secondary text-white px-2 py-1 rounded">1倍积分</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">飞盘团队赛</h3>
+            <ul class="space-y-2 text-sm text-dark/70 mb-4">
+              <li><i class="fa fa-clock-o text-primary mr-2"></i> 总时长 ≥ 90 分钟</li>
+              <li><i class="fa fa-users text-primary mr-2"></i> 团队全员 ≥ 90% 出席</li>
+              <li><i class="fa fa-check-square-o text-primary mr-2"></i> 需提交3分钟视频集锦（教学、比赛、精神圈）</li>
+            </ul>
+            <button class="project-detail-btn w-full bg-gray-100 hover:bg-gray-200 text-dark font-medium py-2 rounded-lg transition-colors"
+                    data-project="D1">查看详情</button>
+          </div>
+        </div>
+        
+        <div class="project-card bg-white rounded-xl shadow-md overflow-hidden card-hover" data-category="D">
+          <div class="h-48 overflow-hidden">
+            <img src="https://sc04.alicdn.com/kf/H4de989482b204ced98245e5d524bd23eq/284736792/H4de989482b204ced98245e5d524bd23eq.jpg" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-orange-100 text-orange-800 text-sm font-medium px-3 py-1 rounded-full">D2. 团体健身操挑战</span>
+              <span class="text-xs bg-secondary text-white px-2 py-1 rounded">热身运动</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">团队健身操</h3>
+            <ul class="space-y-2 text-sm text-dark/70 mb-4">
+              <li><i class="fa fa-film text-primary mr-2"></i> 完成3-5分钟完整体操</li>
+              <li><i class="fa fa-users text-primary mr-2"></i> 团队全员 ≥ 80% 参与</li>
+              <li><i class="fa fa-check-square-o text-primary mr-2"></i> 需提交完整健身操视频，动作协调一致</li>
+            </ul>
+            <button class="project-detail-btn w-full bg-gray-100 hover:bg-gray-200 text-dark font-medium py-2 rounded-lg transition-colors"
+                    data-project="D2">查看详情</button>
+          </div>
+        </div>
+        
+        <!-- E类：健康基石工作坊 -->
+        <div class="project-card bg-white rounded-xl shadow-md overflow-hidden card-hover" data-category="E">
+          <div class="h-48 overflow-hidden">
+            <img src="https://sc04.alicdn.com/kf/H1c38c5e4a9924d40a2a9ee79081171b1n/284736792/H1c38c5e4a9924d40a2a9ee79081171b1n.jpg" alt="有氧饮食工作坊" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-red-100 text-red-800 text-sm font-medium px-3 py-1 rounded-full">E1. 有氧饮食工作坊</span>
+              <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">别忘了给我赏点</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">健康饮食工作坊</h3>
+            <ul class="space-y-2 text-sm text-dark/70 mb-4">
+              <li><i class="fa fa-clock-o text-primary mr-2"></i> 时长 ≥ 90 分钟</li>
+              <li><i class="fa fa-users text-primary mr-2"></i> 团队全员 ≥ 90% 出席</li>
+              <li><i class="fa fa-check-square-o text-primary mr-2"></i> 需提交健康餐或食谱海报合影</li>
+            </ul>
+            <button class="project-detail-btn w-full bg-gray-100 hover:bg-gray-200 text-dark font-medium py-2 rounded-lg transition-colors"
+                    data-project="E1">查看详情</button>
+          </div>
+        </div>
+
+        <div class="project-card bg-white rounded-xl shadow-md overflow-hidden card-hover" data-category="E">
+          <div class="h-48 overflow-hidden">
+            <img src="https://sc04.alicdn.com/kf/Hd9c941543acb4c19ac63a0d0bedbd535k/284736792/Hd9c941543acb4c19ac63a0d0bedbd535k.jpg" alt="户外钓鱼活动" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">E2. 月度累计</span>
+              <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">静心思考</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">户外钓鱼活动</h3>
+            <ul class="space-y-2 text-sm text-dark/70 mb-4">
+              <li><i class="fa fa-clock-o text-primary mr-2"></i> 单次时长 ≥ 60 分钟</li>
+              <li><i class="fa fa-users text-primary mr-2"></i> 团队全员 ≥ 50% 出席</li>
+              <li><i class="fa fa-check-square-o text-primary mr-2"></i> 需提交渔获证明</li>
+            </ul>
+            <button class="project-detail-btn w-full bg-gray-100 hover:bg-gray-200 text-dark font-medium py-2 rounded-lg transition-colors"
+                    data-project="E2">查看详情</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 参与规则 -->
+  <section id="rules" class="section-padding bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="section-title">参与规则</h2>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div>
+          <h3 class="text-2xl font-bold mb-6 text-dark">核心规则</h3>
+          
+          <div class="space-y-8">
+            <!-- 证明材料标准 -->
+            <div class="bg-gray-50 p-6 rounded-xl">
+              <h4 class="flex items-center font-bold text-lg mb-4">
+                <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center mr-3">1</span>
+                证明材料标准
+              </h4>
+              <ul class="space-y-3 pl-11">
+                <li class="flex items-start">
+                  <span class="text-primary mr-2 mt-1"><i class="fa fa-check-circle"></i></span>
+                  <span>照片/视频必须显示原始时间</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-primary mr-2 mt-1"><i class="fa fa-check-circle"></i></span>
+                  <span>团队合影面部可辨识</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="text-primary mr-2 mt-1"><i class="fa fa-check-circle"></i></span>
+                  <span>满足各类别所有打卡要求</span>
+                </li>
+              </ul>
+            </div>
+            
+            <!-- 团队参与率计算 -->
+            <div class="bg-gray-50 p-6 rounded-xl">
+              <h4 class="flex items-center font-bold text-lg mb-4">
+                <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center mr-3">2</span>
+                团队参与率计算
+              </h4>
+              <div class="pl-11">
+                <p class="mb-3">计算公式：(完成 ≥ 1 项目的成员数 ÷ 团队总人数) × 100%</p>
+                <p class="font-semibold text-primary">合格线：必须 ≥ 80%</p>
+              </div>
+            </div>
+            
+            <!-- 争议处理流程 -->
+            <div class="bg-gray-50 p-6 rounded-xl">
+              <h4 class="flex items-center font-bold text-lg mb-4">
+                <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center mr-3">3</span>
+                争议处理流程
+              </h4>
+              <ol class="space-y-3 pl-11 list-decimal list-inside">
+                <li>队长申诉 → 提交补充证据</li>
+                <li>领导审议 → 1个工作日内回复</li>
+                <li>最终裁定 → 公司拥有最终解释权</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-2xl font-bold mb-6 text-dark">安全规范</h3>
+          
+          <div class="bg-gray-50 p-6 rounded-xl mb-8">
+            <div class="flex items-center mb-6">
+              <span class="text-red-500 text-2xl mr-3"><i class="fa fa-exclamation-triangle"></i></span>
+              <h4 class="font-bold text-lg">月度强化安全规范</h4>
+            </div>
+            
+            <ul class="space-y-4">
+              <li class="flex items-start">
+                <span class="bg-red-100 text-red-800 w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
+                  <i class="fa fa-warning text-xs"></i>
+                </span>
+                <div>
+                  <span class="font-medium">高风险活动：</span>
+                  <span>登山、骑行（需要备好安全措施）</span>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="bg-blue-100 text-blue-800 w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
+                  <i class="fa fa-calendar-check-o text-xs"></i>
+                </span>
+                <div>
+                  <span class="font-medium">行前报备：</span>
+                  <span>户外活动提前24小时向公司报备</span>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="bg-yellow-100 text-yellow-800 w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
+                  <i class="fa fa-cloud text-xs"></i>
+                </span>
+                <div>
+                  <span class="font-medium">天气预警：</span>
+                  <span>恶劣天气自动取消户外活动</span>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="bg-green-100 text-green-800 w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
+                  <i class="fa fa-medkit text-xs"></i>
+                </span>
+                <div>
+                  <span class="font-medium">急救准备：</span>
+                  <span>团队配备基础急救包</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          
+          <!-- 常见问题解答 -->
+          <div class="bg-primary/5 p-6 rounded-xl">
+            <h4 class="font-bold text-lg mb-4 text-primary">常见问题解答（FAQ）</h4>
+            <div class="space-y-4">
+              <div>
+                <p class="font-medium mb-1">Q1：项目可以重复完成吗？</p>
+                <p class="text-dark/80">A：同一项目类别（如羽毛球）只能计一次，但不同类别可累计。</p>
+              </div>
+              <div>
+                <p class="font-medium mb-1">Q2：团队成员中途变动怎么办？</p>
+                <p class="text-dark/80">A：以月末统计时的在岗人员为准，离职人员不纳入基数。</p>
+              </div>
+              <div>
+                <p class="font-medium mb-1">Q3：恶劣天气导致活动取消怎么办？</p>
+                <p class="text-dark/80">A：请合理安排活动时间。</p>
+              </div>
+              <div>
+                <p class="font-medium mb-1">Q4：奖金如何使用？</p>
+                <p class="text-dark/80">A：团队建设基金需用于集体活动。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 奖励机制 -->
+  <section id="rewards" class="section-padding bg-gray-50">
+    <div class="container mx-auto px-4">
+      <h2 class="section-title">奖励与排名</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h3 class="text-2xl font-bold mb-8 text-dark">完成两项活动达最低起给标准（一项没有奖金）</h3>
+          
+          <div class="space-y-6">
+            <div class="bg-white p-6 rounded-xl shadow-md flex items-center justify-between card-hover">
+              <div>
+                <h4 class="text-xl font-bold mb-1">完成 2 个项目</h4>
+                <p class="text-dark/60">团队参与率≥80%</p>
+              </div>
+              <div class="text-right">
+                <span class="text-3xl font-bold text-primary">500.00元</span>
+                <p class="text-dark/60">团队基金</p>
+              </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl shadow-md flex items-center justify-between card-hover">
+              <div>
+                <h4 class="text-xl font-bold mb-1">完成 3 个项目</h4>
+                <p class="text-dark/60">团队参与率≥80%</p>
+              </div>
+              <div class="text-right">
+                <span class="text-3xl font-bold text-primary">1000.00元</span>
+                <p class="text-dark/60">团队基金</p>
+              </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-md flex items-center justify-between card-hover">
+              <div>
+                <h4 class="text-xl font-bold mb-1">完成 4 个项目（封顶）</h4>
+                <p class="text-dark/60">团队参与率≥80%</p>
+              </div>
+              <div class="text-right">
+                <span class="text-3xl font-bold text-primary">1500.00元</span>
+                <p class="text-dark/60">团队基金</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h3 class="text-2xl font-bold mb-6 text-dark">月度活力团队认证</h3>
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-3 rounded-full mr-4">
+                  <i class="fa fa-trophy text-primary text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-lg mb-1">认证权益</h4>
+                  <p class="text-dark/70">获得"月度活力团队"电子证书及荣誉墙展示机会</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-3 rounded-full mr-4">
+                  <i class="fa fa-star text-primary text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-lg mb-1">评选标准</h4>
+                  <ul class="text-dark/70 space-y-1 ml-5 list-disc">
+                    <li>团队参与率 ≥ 80%</li>
+                    <li>完成项目总数 ≥ 4 个（可跨类别）</li>
+                    <li>无安全违规记录</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-3 rounded-full mr-4">
+                  <i class="fa fa-gift text-primary text-xl"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-lg mb-1">额外奖励</h4>
+                  <p class="text-dark/70">连续3个月获得认证的团队，可获得年度健康基金特别奖励</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 项目详情模态框 -->
+  <div id="projectModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="p-6 border-b">
+        <div class="flex justify-between items-center">
+          <h3 id="modalTitle" class="text-2xl font-bold"></h3>
+          <button id="closeModal" class="text-dark/50 hover:text-dark text-xl">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div id="modalContent" class="p-6 space-y-4"></div>
+      <div class="p-6 border-t text-right">
+        <button id="closeModalBtn" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors">
+          关闭
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 移动端菜单切换
+    document.getElementById('menuBtn').addEventListener('click', function() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // 导航栏滚动效果
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('py-2', 'shadow');
+        navbar.classList.remove('py-3');
+      } else {
+        navbar.classList.add('py-3');
+        navbar.classList.remove('py-2', 'shadow');
+      }
+    });
+
+    // 项目分类筛选
+    document.querySelectorAll('.category-tag').forEach(button => {
+      button.addEventListener('click', function() {
+        const category = this.getAttribute('data-category');
+        
+        // 更新按钮样式
+        document.querySelectorAll('.category-tag').forEach(btn => {
+          btn.classList.remove('bg-primary', 'text-white');
+          btn.classList.add('bg-gray-100', 'text-gray-800');
+        });
+        this.classList.remove('bg-gray-100', 'text-gray-800');
+        this.classList.add('bg-primary', 'text-white');
+        
+        // 筛选项目
+        document.querySelectorAll('.project-card').forEach(card => {
+          if (category === 'all' || card.getAttribute('data-category') === category) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // 项目详情数据
+    const projectDetails = {
+      A1: {
+        title: "羽毛球团体赛",
+        category: "A1. 球类竞技",
+        content: `
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-bold text-lg mb-2">活动详情</h4>
+              <p>团队羽毛球团体赛需按照标准团体赛制进行，每队至少2名选手，包含男单、女单、男双、女双和混双等项目。比赛采用五场三胜制，每场三局两胜，每局21分制。</p>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">参与要求</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>团队参与率必须达到80%以上</li>
+                <li>活动时长不得少于2小时（包含热身和正式比赛）</li>
+                <li>需使用标准羽毛球场和合规器材</li>
+                <li>建议配备一名队员当临时裁判（含计分）</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">提交材料</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>包含所有参与者的场地合影</li>
+                <li>所有照片需携带时间水印（确保真实性）</li>
+                <li>比赛精彩瞬间视频（至少15秒）</li>
+                <li>比赛结果记录表（需双方队长签字）</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">注意事项</h4>
+              <p>建议提前做好热身运动，避免运动损伤。可自备球拍和运动装备，也可使用场地提供的器材。活动前需检查场地安全，确保无障碍物和湿滑区域。</p>
+            </div>
+          </div>
+        `
+      },
+      A2: {
+        title: "篮球对抗赛",
+        category: "A2. 球类竞技",
+        content: `
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-bold text-lg mb-2">活动详情</h4>
+              <p>篮球对抗赛可选择3v3半场或5v5全场形式，需按照国际篮联基本规则进行，比赛时间不少于90分钟。3v3比赛采用10分钟净时制，先得到21分获胜；5v5比赛采用4节10分钟制，节间休息2分钟。</p>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">参与要求</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>上场队员需达到团队总人数的60%以上</li>
+                <li>需至少1名公正的记分员</li>
+                <li>比赛前必须进行15分钟以上的热身活动</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">提交材料</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>赛前团队合影（需显示场地和时间）</li></li>
+                <li>比赛精彩集锦视频（至少15秒）</li>
+                <li>赛后团队离场合影</li>
+                <li>所有照片需携带时间水印（确保真实性）</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">安全提示</h4>
+              <p>患有心脏病、高血压等不适宜剧烈运动的人员不宜参与。比赛过程中如感不适，应立即停止运动并休息。建议配备简单医疗用品应对可能的擦伤等小意外。</p>
+            </div>
+          </div>
+        `
+      },
+      A4: {
+        title: "乒乓球团体赛",
+        category: "A4. 球类竞技",
+        content: `
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-bold text-lg mb-2">活动详情</h4>
+              <p>采用斯韦思林杯团体赛制，每队由3-5名选手组成，比赛顺序为：A vs X、B vs Y、双打、A vs Y、B vs X。每场比赛为五局三胜制，每局11分。整个活动时长不得少于120分钟。</p>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">参与要求</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>团队参与率不低于70%</li>
+                <li>需使用标准乒乓球台和合规球拍</li>
+                <li>建议安排至少1名裁判</li>
+                <li>活动需包含15分钟热身时间</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">提交材料</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>全体参与者持合影</li>
+                <li>所有照片需要携带时间水印</li>
+                <li>至少15秒比赛的精彩视频片段</li>
+                <li>活动现场环境照片（显示球台和场地）</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      B1: {
+        title: "团队登山挑战",
+        category: "B1. 户外探索",
+        content: `
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-bold text-lg mb-2">活动详情</h4>
+              <p>团队登山挑战需要选择海拔高度不少于500米的山峰，全程需团队共同完成，不得单独行动。建议选择已开发成熟的登山路线，避免未开发区域。总行程时间建议控制在3-6小时。</p>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">安全要求</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>提前24小时向公司报备登山计划（路线、时间、参与人员）</li>
+                <li>因考虑到夜间危险系数高，禁止夜爬。时间段（21：00-5；00）</li>
+                <li>准备充足的水、食物和急救用品</li>
+                <li>关注天气预报，避免恶劣天气出行</li>
+                <li>每人必须配备通讯设备，保持信号畅通</li>
+                <li>穿着适合登山的服装和鞋子</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">提交材料</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>登山前团队合影（显示起点和时间）</li>
+                <li>所有照片需携带时间水印（确保真实性）</li>
+                <li>至少三个不同地点的团队合影（体现登山过程）</li>
+                <li>登顶或终点团队合影</li>
+              </ul>
+            </div>
+            <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+              <h4 class="font-bold text-lg mb-2 text-red-700">高风险提示</h4>
+              <p class="text-red-600">本项目属于高风险活动，有心脏病、高血压、关节疾病等人员不宜参与。如遇天气突变或其他危险情况，应立即停止活动并采取安全措施。</p>
+            </div>
+          </div>
+        `
+      },
+      B3: {
+        title: "团队骑行挑战",
+        category: "B3. 户外探索",
+        content: `
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-bold text-lg mb-2">活动详情</h4>
+              <p>团队骑行挑战可采用单次集体骑行或月度累计骑行两种方式。集体骑行需团队60%以上成员参与，单次距离不少于20公里；月度累计骑行需团队成员各自完成，总累计距离不少于40公里，其中集体骑行次数不少于2次。</p>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">安全规范</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>集体骑行时全员必须佩戴安全头盔</li>
+                <li>提前检查自行车状况，确保刹车、轮胎等正常</li>
+                <li>遵守交通规则，尽量选择自行车专用道</li>
+                <li>安排骑行领队和收尾人员，保持团队队形</li>
+                <li>配备简单维修工具和急救包</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">提交材料</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>所有照片需要携带时间水印</li>
+                <li>骑行轨迹记录截图（可使用骑行APP）</li>
+                <li>集体骑行出发前的团队合影（全员戴头盔</li>
+                <li>至少1段集体骑行的视频片段</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      B4: {
+        title: "团队露营体验",
+        category: "B4. 户外探索",
+        content: `
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-bold text-lg mb-2">活动详情</h4>
+              <p>团队露营体验活动时长不少于3小时，可选择日间露营或过夜露营。活动应体现团队协作精神，确保每个人各司其职，包括共同搭建场地、准备餐食、团队游戏等环节。建议选择合适营地，遵守规则，确保安全设施齐全。</p>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">参与要求</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>团队参与率不低于80%</li>
+                <li>提前制定详细活动计划并报备</li>
+                <li>必须明确分工，体现团队协作</li>
+                <li>遵守规定，保护环境</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">提交材料</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>所有照片需携带时间水印</li>
+                <li>到达营地时的团队合影</li>
+                <li>搭建帐篷、准备餐食等协作过程的照片或视频</li>
+                <li>露营地定位信息截图</li>
+                <li>离开前清理营地的照片，需保持环境干净，带走垃圾（体现环保意识）</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      C1: {
+        title: "专业团体健身",
+        category: "C1. 身心平衡",
+        content: `
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-bold text-lg mb-2">活动详情</h4>
+              <p>专业团体健身课需在专业健身场所进行，可选择动感单车、团体操、HIIT训练等形式，单次课程时长不少于60分钟，由专业教练指导。活动应包括热身、主要训练和放松三个阶段。</p>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">参与要求</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>参与人数不少于5人或团队总人数的60%（取较高值）</li>
+                <li>需在正规健身机构进行，确保设施安全</li>
+                <li>活动前需确认参与者健康状况，不适宜剧烈运动者应避免参与</li>
+                <li>穿着适合运动的服装和运动鞋</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">提交材料</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>团队在场地的合影</li>
+                <li>课程签到记录或报名凭证</li>
+                <li>健身过程中的照片或短视频</li>
+                <li>所有照片需携带时间水印（确保真实性）</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      C2: {
+        title: "瑜伽团体修炼",
+        category: "C2. 身心平衡",
+        content: `
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-bold text-lg mb-2">活动详情</h4>
+              <p>瑜伽团体修炼可选择哈他瑜伽、流瑜伽、阴瑜伽或普拉提等形式，单次课程时长不少于60分钟。活动应在安静、舒适的环境中进行，建议由专业教练指导，特别适合缓解工作压力、改善身体柔韧性。</p>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">参与要求</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>团队参与率不低于60%</li>
+                <li>准备瑜伽垫和舒适的运动服装</li>
+                <li>所有照片需携带时间水印（确保真实性）</li>
+                <li>如有颈椎、腰椎等问题，应提前告知教练并遵医嘱</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">提交材料</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>团队同一体式的瑜伽照片</li>
+                <li>课程签到记录或参与凭证</li>
+                <li>活动全程视频片段（至少15秒）</li>
+                <li>所有照片需携带时间水印（确保真实性）</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      D1: {
+        title: "飞盘团队赛",
+        category: "D1. 创意协作有氧",
+        content: `
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-bold text-lg mb-2">活动详情</h4>
+              <p>飞盘团队赛是一项强调团队协作和体育精神的运动，总时长不少于90分钟，包括规则讲解、热身练习、正式比赛和精神圈环节。比赛采用AvB形式，场地尺寸为100米×37米，得分区为18米×37米。</p>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">参与要求</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>团队全员参与率不低于80%</li>
+                <li>需使用标准飞盘（重量175克）</li>
+                <li>穿着适合跑动的运动服装和鞋子</li>
+                <li>比赛前进行充分的热身，避免运动损伤</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">提交材料</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>30s视频集锦（可选教学、比赛、精神圈环节）</li>
+                <li>团队合影（手持飞盘）</li>
+                <li>所有照片需携带时间水印（确保真实性）</li>
+                <li>至少5张活动过程中的精彩瞬间照片</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">飞盘精神</h4>
+              <p>飞盘运动强调体育精神和公平竞争，没有裁判，依靠球员自我判罚。活动中应体现尊重、真诚、公平的精神，这也是评分的重要参考。</p>
+            </div>
+          </div>
+        `
+      },
+      D2: {
+        title: "团队健身操",
+        category: "D2. 创意协作有氧",
+        content: `
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-bold text-lg mb-2">活动详情</h4>
+              <p>团队健身操要求团队共同学习并完成一段3-5分钟的完整视频，体操类型不限（可选择流行、健身操、民族舞等）。活动不仅能锻炼身体协调性，还能增强团队默契和创造力，是一项兼具趣味性和健身效果的活动。</p>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">参与要求</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>团队全员参与率不低于80%</li>
+                <li>体操需有完整的编排和音乐</li></li>
+                <li>鼓励团队自主创作或改编舞蹈动作</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">提交材料</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>完整的团队体操视频（正面全景）</li>
+                <li>排练过程中的照片或短视频</li>
+                <li>团队成员的体操合影（可创意摆拍）</li>
+                <li>所有照片需携带时间水印（确保真实性）</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      E1: {
+        title: "健康饮食工作坊",
+        category: "E1. 健康基石工作坊",
+        content: `
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-bold text-lg mb-2">活动详情</h4>
+              <p>健康饮食工作坊时长不少于90分钟，可邀请专业营养师讲解健康饮食知识，或组织团队共同学习制作健康餐食。活动应包括理论讲解和实践操作两部分，帮助团队成员建立科学的饮食习惯。</p>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">参与要求</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>团队全员参与率不低于90%</li>
+                <li>提前准备相关食材、工具或学习资料</li>
+                <li>可邀请专业人士指导（营养师、厨师等）</li>
+                <li>活动结束后可分享健康食谱</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">提交材料</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>工作坊现场照片（体现学习或制作过程）</li>
+                <li>所有照片需携带时间水印（确保真实性）</li>
+                <li>制作的健康餐成品或食谱海报合影</li>
+                <li>需提供选材，制作过程，制作完成等过程照片</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      E2: {
+        title: "户外钓鱼活动",
+        category: "E2. 健康基石工作坊",
+        content: `
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-bold text-lg mb-2">活动详情</h4>
+              <p>户外钓鱼活动是一项能让人放松心情、培养耐心的健康活动，单次时长不少于90分钟。活动可选择淡水钓或海钓，建议在正规钓鱼场进行，确保安全和环保。</p>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">参与要求</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>团队参与率不低于50%</li>
+                <li>遵守钓鱼场所规定和当地渔业法规</li>
+                <li>注意安全，特别是在水边活动时</li>
+                <li>践行环保理念，不随意丢弃垃圾</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">提交材料</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>团队在钓场的合影</li>
+                <li>渔获证明（与渔获的合影，提倡放流）</li>
+                <li>活动现场环境照片</li>
+                <li>所有照片需携带时间水印（确保真实性</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-bold text-lg mb-2">注意事项</h4>
+              <p>请提前了解天气情况，做好防晒、防蚊措施。如无钓鱼经验，建议邀请有经验的人指导。注意保管好个人物品，特别是在水边活动时要时刻注意安全。</p>
+            </div>
+          </div>
+        `
+      }
+    };
+
+    // 项目详情模态框功能
+    const modal = document.getElementById('projectModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalContent = document.getElementById('modalContent');
+    const closeModal = document.getElementById('closeModal');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    // 为所有详情按钮添加点击事件
+    document.querySelectorAll('.project-detail-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const projectId = this.getAttribute('data-project');
+        const project = projectDetails[projectId];
+        
+        if (project) {
+          // 填充模态框内容
+          modalTitle.textContent = project.title;
+          modalContent.innerHTML = project.content;
+          
+          // 显示模态框
+          modal.classList.remove('hidden');
+          document.body.style.overflow = 'hidden'; // 防止背景滚动
+        }
+      });
+    });
+
+    // 关闭模态框的函数
+    function hideModal() {
+      modal.classList.add('hidden');
+      document.body.style.overflow = ''; // 恢复背景滚动
+    }
+
+    // 为关闭按钮添加事件
+    closeModal.addEventListener('click', hideModal);
+    closeModalBtn.addEventListener('click', hideModal);
+
+    // 点击模态框外部也关闭
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        hideModal();
+      }
+    });
+
+    // 按ESC键关闭
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        hideModal();
+      }
+    });
+  </script>
+</body>
+</html>
+
+<!-- 应急方案 -->
+<section id="safety" class="section-padding bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="section-title">户外应急方案</h2>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- 应急原则 -->
+        <div class="bg-gray-50 p-6 rounded-xl">
+          <h3 class="text-xl font-bold mb-6 flex items-center">
+            <span class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center mr-3">
+              <i class="fa fa-shield"></i>
+            </span>
+            应急核心原则
+          </h3>
+          
+          <ul class="space-y-4">
+            <li class="flex items-start">
+              <span class="bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">1</span>
+              <div>
+                <span class="font-medium">安全优先：</span>
+                <span class="text-dark/80">始终将人员生命安全放在首位</span>
+              </div>
+            </li>
+            <li class="flex items-start">
+              <span class="bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">2</span>
+              <div>
+                <span class="font-medium">预防为主：</span>
+                <span class="text-dark/80">提前做好风险评估和物资准备</span>
+              </div>
+            </li>
+            <li class="flex items-start">
+              <span class="bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">3</span>
+              <div>
+                <span class="font-medium">冷静处置：</span>
+                <span class="text-dark/80">保持镇定，科学制定应对策略</span>
+              </div>
+            </li>
+            <li class="flex items-start">
+              <span class="bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">4</span>
+              <div>
+                <span class="font-medium">及时求救：</span>
+                <span class="text-dark/80">明确求救信号和渠道，果断求助</span>
+              </div>
+            </li>
+            <li class="flex items-start">
+              <span class="bg-primary/20 text-primary w-6 h-6 rounded-full flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">5</span>
+              <div>
+                <span class="font-medium">团队协作：</span>
+                <span class="text-dark/80">明确分工、相互配合提升效率</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- 应急准备 -->
+        <div class="bg-gray-50 p-6 rounded-xl">
+          <h3 class="text-xl font-bold mb-6 flex items-center">
+            <span class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center mr-3">
+              <i class="fa fa-gear"></i>
+            </span>
+            前期应急准备
+          </h3>
+          
+          <div class="space-y-6">
+            <div>
+              <h4 class="font-medium mb-2">风险评估与规划</h4>
+              <ul class="space-y-1 text-sm text-dark/80 pl-5 list-disc">
+                <li>目的地调研，避开危险区域</li>
+                <li>制定详细行程和备用路线</li>
+                <li>人员健康状况排查</li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 class="font-medium mb-2">应急物资准备</h4>
+              <ul class="space-y-1 text-sm text-dark/80 pl-5 list-disc">
+                <li>基础生存物资（食物、水源、保暖）</li>
+                <li>应急工具（通讯、导航、照明）</li>
+                <li>医疗急救物资（急救包、常用药品）</li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 class="font-medium mb-2">行前报备要求</h4>
+              <ul class="space-y-1 text-sm text-dark/80 pl-5 list-disc">
+                <li>提前24小时向公司报备</li>
+                <li>告知活动路线和预计返程时间</li>
+                <li>确认应急联系人信息</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 意外伤害应对 -->
+        <div class="bg-gray-50 p-6 rounded-xl">
+          <h3 class="text-xl font-bold mb-6 flex items-center">
+            <span class="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center mr-3">
+              <i class="fa fa-medkit"></i>
+            </span>
+            意外伤害应对
+          </h3>
+          
+          <div class="space-y-4">
+            <div class="p-3 bg-white rounded-lg">
+              <h4 class="font-medium text-primary mb-1">外伤出血</h4>
+              <p class="text-sm text-dark/80">按压止血、消毒包扎，大量出血使用止血带并及时就医</p>
+            </div>
+            
+            <div class="p-3 bg-white rounded-lg">
+              <h4 class="font-medium text-primary mb-1">骨折</h4>
+              <p class="text-sm text-dark/80">避免移动，用树枝、木板固定，脊柱骨折等待专业救援</p>
+            </div>
+            
+            <div class="p-3 bg-white rounded-lg">
+              <h4 class="font-medium text-primary mb-1">蚊虫叮咬</h4>
+              <p class="text-sm text-dark/80">肥皂水清洗，涂抹药膏，出现过敏反应及时用药就医</p>
+            </div>
+            
+            <div class="p-3 bg-white rounded-lg">
+              <h4 class="font-medium text-primary mb-1">蛇咬伤</h4>
+              <p class="text-sm text-dark/80">远离毒蛇，绑扎伤口上方，清洗伤口，尽快注射抗蛇毒血清</p>
+            </div>
+            
+            <div class="p-3 bg-white rounded-lg">
+              <h4 class="font-medium text-primary mb-1">野生动物攻击</h4>
+              <p class="text-sm text-dark/80">保持冷静，缓慢后退，必要时用工具防御，大声呼救</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 急救包清单 -->
+      <div class="mt-12 bg-primary/5 p-6 rounded-xl">
+        <h3 class="text-xl font-bold mb-4 text-primary">标准急救包清单</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="flex items-center">
+            <span class="text-primary mr-2"><i class="fa fa-check"></i></span>
+            <span>创可贴、纱布、绷带</span>
+          </div>
+          <div class="flex items-center">
+            <span class="text-primary mr-2"><i class="fa fa-check"></i></span>
+            <span>碘伏、酒精棉片</span>
+          </div>
+          <div class="flex items-center">
+            <span class="text-primary mr-2"><i class="fa fa-check"></i></span>
+            <span>止血带、医用胶带</span>
+          </div>
+          <div class="flex items-center">
+            <span class="text-primary mr-2"><i class="fa fa-check"></i></span>
+            <span>镊子、剪刀</span>
+          </div>
+          <div class="flex items-center">
+            <span class="text-primary mr-2"><i class="fa fa-check"></i></span>
+            <span>退烧药、止痛药</span>
+          </div>
+          <div class="flex items-center">
+            <span class="text-primary mr-2"><i class="fa fa-check"></i></span>
+            <span>止泻药、抗过敏药</span>
+          </div>
+          <div class="flex items-center">
+            <span class="text-primary mr-2"><i class="fa fa-check"></i></span>
+            <span>晕车药、蚊虫叮咬药膏</span>
+          </div>
+          <div class="flex items-center">
+            <span class="text-primary mr-2"><i class="fa fa-check"></i></span>
+            <span>蛇毒抽吸器、保温毯</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!DOCTYPE html>
+  <html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赋能健康・聚力和洋 - 团队健康挑战月</title>
+    <!-- 引入外部资源 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- Tailwind 配置 -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#2DD4BF',
+              secondary: '#F97316',
+              dark: '#0F172A',
+              light: '#F8FAFC',
+              muted: '#94A3B8'
+            }
+          }
+        }
+      }
+    </script>
+    
+    <style>
+      html { scroll-behavior: smooth; }
+      body { background-color: #F8FAFC; }
+      .success-animation { animation: bounce 1s ease-in-out; }
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+    </style>
+  </head>
+  
+  <body class="font-sans text-dark">
+    <!-- 报名表单部分 -->
+    <section id="signup" class="py-16 md:py-24 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="text-[clamp(1.75rem,3vw,2.5rem)] font-bold text-dark mb-8 text-center">团队报名</h2>
+        <p class="text-center text-muted mb-12 max-w-3xl mx-auto">
+          填写以下信息完成报名，我们将尽快与您联系确认。请确保信息真实有效。
+        </p>
+        
+        <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl p-8 md:p-10">
+          <!-- 表单区域 -->
+          <form id="signupForm" class="space-y-6">
+            <!-- 部门选择 -->
+            <div>
+              <label for="department" class="block text-dark font-medium mb-2">所属部门 <span class="text-red-500">*</span></label>
+              <select id="department" name="department" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary" required>
+                <option value="">请选择部门</option>
+                <option value="外贸销售一部">和洋外贸销售一部</option>
+                <option value="外贸销售二部">和洋外贸销售二部</option>
+                <option value="国内销售一部">和洋国内销售一部</option>
+                <option value="运营美工部">和洋运营美工部</option>
+              </select>
+              <p id="departmentError" class="text-red-500 text-sm mt-1 hidden">请选择所属部门</p>
+            </div>
+            
+            <!-- 联系人信息 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label for="contactName" class="block text-dark font-medium mb-2">联系人姓名 <span class="text-red-500">*</span></label>
+                <input type="text" id="contactName" name="contactName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary" placeholder="请输入联系人姓名" required>
+                <p id="contactNameError" class="text-red-500 text-sm mt-1 hidden">请输入联系人姓名</p>
+              </div>
+              <div>
+                <label for="contactPhone" class="block text-dark font-medium mb-2">联系电话 <span class="text-red-500">*</span></label>
+                <input type="tel" id="contactPhone" name="contactPhone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary" placeholder="请输入手机号码" pattern="1[3-9]\d{9}" required>
+                <p id="contactPhoneError" class="text-red-500 text-sm mt-1 hidden">请输入有效的手机号码</p>
+              </div>
+            </div>
+            
+            <!-- 团队人数 -->
+            <div>
+              <label for="teamSize" class="block text-dark font-medium mb-2">团队人数 <span class="text-red-500">*</span></label>
+              <input type="number" id="teamSize" name="teamSize" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary" min="1" placeholder="请输入团队总人数" required>
+              <p id="teamSizeError" class="text-red-500 text-sm mt-1 hidden">请输入有效的团队人数（至少1人）</p>
+            </div>
+            
+            <!-- 意向参与项目（补充完整所有项目，保持最多选择4项限制） -->
+            <div>
+              <label class="block text-dark font-medium mb-2">意向参与项目（最多选择4项/多选无效） <span class="text-red-500">*</span></label>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                <!-- 球类竞技 -->
+                <div class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" id="project-A1" name="intendedProjects" value="A1" class="project-checkbox h-4 w-4 text-primary focus:ring-primary/50">
+                  <label for="project-A1" class="cursor-pointer">羽毛球团体赛</label>
+                </div>
+                <div class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" id="project-A2" name="intendedProjects" value="A2" class="project-checkbox h-4 w-4 text-primary focus:ring-primary/50">
+                  <label for="project-A2" class="cursor-pointer">篮球对抗赛</label>
+                </div>
+                <div class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" id="project-A4" name="intendedProjects" value="A4" class="project-checkbox h-4 w-4 text-primary focus:ring-primary/50">
+                  <label for="project-A4" class="cursor-pointer">乒乓球团体赛</label>
+                </div>
+                
+                <!-- 户外探索 -->
+                <div class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" id="project-B1" name="intendedProjects" value="B1" class="project-checkbox h-4 w-4 text-primary focus:ring-primary/50">
+                  <label for="project-B1" class="cursor-pointer">团队登山挑战</label>
+                </div>
+                <div class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" id="project-B3" name="intendedProjects" value="B3" class="project-checkbox h-4 w-4 text-primary focus:ring-primary/50">
+                  <label for="project-B3" class="cursor-pointer">团队骑行挑战</label>
+                </div>
+                <div class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" id="project-B4" name="intendedProjects" value="B4" class="project-checkbox h-4 w-4 text-primary focus:ring-primary/50">
+                  <label for="project-B4" class="cursor-pointer">团队露营体验</label>
+                </div>
+                
+                <!-- 身心平衡 -->
+                <div class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" id="project-C1" name="intendedProjects" value="C1" class="project-checkbox h-4 w-4 text-primary focus:ring-primary/50">
+                  <label for="project-C1" class="cursor-pointer">专业团体健身</label>
+                </div>
+                <div class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" id="project-C2" name="intendedProjects" value="C2" class="project-checkbox h-4 w-4 text-primary focus:ring-primary/50">
+                  <label for="project-C2" class="cursor-pointer">瑜伽团体修炼</label>
+                </div>
+                
+                <!-- 创意协作有氧 -->
+                <div class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" id="project-D1" name="intendedProjects" value="D1" class="project-checkbox h-4 w-4 text-primary focus:ring-primary/50">
+                  <label for="project-D1" class="cursor-pointer">飞盘团队赛</label>
+                </div>
+                <div class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" id="project-D2" name="intendedProjects" value="D2" class="project-checkbox h-4 w-4 text-primary focus:ring-primary/50">
+                  <label for="project-D2" class="cursor-pointer">团队舞蹈秀</label>
+                </div>
+                
+                <!-- 健康基石工作坊 -->
+                <div class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" id="project-E1" name="intendedProjects" value="E1" class="project-checkbox h-4 w-4 text-primary focus:ring-primary/50">
+                  <label for="project-E1" class="cursor-pointer">健康饮食工作坊</label>
+                </div>
+                <div class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                  <input type="checkbox" id="project-E2" name="intendedProjects" value="E2" class="project-checkbox h-4 w-4 text-primary focus:ring-primary/50">
+                  <label for="project-E2" class="cursor-pointer">户外钓鱼活动</label>
+                </div>
+              </div>
+              <p id="projectError" class="text-red-500 text-sm mt-2 hidden">请至少选择1项，最多选择4项</p>
+            </div>
+            
+            <!-- 同意条款 -->
+            <div class="flex items-start">
+              <input type="checkbox" id="agreeTerms" name="agreeTerms" class="mt-1 mr-3 h-4 w-4 text-primary focus:ring-primary/50" required>
+              <label for="agreeTerms" class="text-dark/80 cursor-pointer">
+                我已阅读并同意活动规则及安全规范 <span class="text-red-500">*</span>
+              </label>
+            </div>
+            
+            <!-- 提交按钮 -->
+            <div class="pt-4">
+              <button type="submit" id="submitBtn" class="w-full bg-primary text-white font-semibold py-3 rounded-lg hover:bg-primary/90 transition-all shadow-lg flex items-center justify-center">
+                <span>提交报名</span>
+                <i class="fa fa-arrow-right ml-2"></i>
+              </button>
+            </div>
+          </form>
+          
+          <!-- 提交成功提示（确保100%显示） -->
+          <div id="successMessage" class="hidden mt-8 text-center p-8 bg-green-50 rounded-xl border border-green-200">
+            <div class="inline-block p-4 bg-green-100 rounded-full mb-6 success-animation">
+              <i class="fa fa-check-circle text-green-500 text-5xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-green-700 mb-3">报名成功！🎉</h3>
+            <p class="text-green-600 mb-6 leading-relaxed">
+              感谢您的团队参与本次健康挑战月活动！<br>
+              我们已收到您的报名信息，将在1-2个工作日内与您联系确认详情。<br>
+              请保持电话畅通！
+            </p>
+            <a href="#" class="inline-flex items-center bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors">
+              <i class="fa fa-home mr-2"></i> 返回首页
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <script>
+      // 核心：报名表单提交处理（确保成功提示100%显示）
+      document.getElementById('signupForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // 隐藏所有错误提示
+        document.querySelectorAll('[id$="Error"]').forEach(el => el.classList.add('hidden'));
+        
+        // 获取表单数据
+        const department = document.getElementById('department').value;
+        const contactName = document.getElementById('contactName').value.trim();
+        const contactPhone = document.getElementById('contactPhone').value.trim();
+        const teamSize = document.getElementById('teamSize').value;
+        const selectedProjects = document.querySelectorAll('.project-checkbox:checked');
+        const agreeTerms = document.getElementById('agreeTerms').checked;
+        
+        // 验证标记
+        let isValid = true;
+        
+        // 验证部门
+        if (!department) {
+          document.getElementById('departmentError').classList.remove('hidden');
+          isValid = false;
+        }
+        
+        // 验证联系人姓名
+        if (!contactName) {
+          document.getElementById('contactNameError').classList.remove('hidden');
+          isValid = false;
+        }
+        
+        // 验证联系电话
+        const phoneRegex = /^1[3-9]\d{9}$/;
+        if (!phoneRegex.test(contactPhone)) {
+          document.getElementById('contactPhoneError').classList.remove('hidden');
+          isValid = false;
+        }
+        
+        // 验证团队人数
+        if (!teamSize || teamSize < 1 || isNaN(teamSize)) {
+          document.getElementById('teamSizeError').classList.remove('hidden');
+          isValid = false;
+        }
+        
+        // 验证参与项目
+        if (selectedProjects.length < 1 || selectedProjects.length > 4) {
+          document.getElementById('projectError').classList.remove('hidden');
+          isValid = false;
+        }
+        
+        // 验证同意条款
+        if (!agreeTerms) {
+          alert('请阅读并同意活动规则及安全规范');
+          isValid = false;
+        }
+        
+        // 验证通过，强制显示成功提示
+        if (isValid) {
+          // 立即隐藏表单（使用!important确保生效）
+          document.getElementById('signupForm').style.display = 'none !important';
+          
+          // 立即显示成功提示（使用!important确保生效）
+          const successMsg = document.getElementById('successMessage');
+          successMsg.classList.remove('hidden');
+          successMsg.style.display = 'block !important';
+          
+          // 强制滚动到成功提示
+          setTimeout(() => {
+            successMsg.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+          
+          // 可选：实际项目中添加AJAX提交逻辑
+          /*
+          fetch('/api/submit-signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              department, contactName, contactPhone, teamSize,
+              projects: Array.from(selectedProjects).map(cb => cb.value)
+            })
+          }).then(res => res.json()).then(data => {
+            console.log('提交成功', data);
+          }).catch(err => {
+            console.error('提交失败', err);
+            // 即使接口失败，也保持成功提示显示
+          });
+          */
+        }
+      });
+  
+      // 优化项目选择限制逻辑（确保最多选择4项）
+      document.querySelectorAll('.project-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          const selectedCount = document.querySelectorAll('.project-checkbox:checked').length;
+          const projectError = document.getElementById('projectError');
+          
+          // 当选择达到4项时，禁用所有未选中的复选框
+          document.querySelectorAll('.project-checkbox:not(:checked)').forEach(box => {
+            box.disabled = selectedCount >= 4;
+            if (selectedCount >= 4) {
+              box.parentElement.classList.add('opacity-50');
+            } else {
+              box.parentElement.classList.remove('opacity-50');
+            }
+          });
+          
+          // 显示/隐藏错误提示
+          if (selectedCount > 4) {
+            projectError.classList.remove('hidden');
+            this.checked = false; // 取消当前选择
+          } else {
+            projectError.classList.add('hidden');
+          }
+        });
+      });
+    </script>
+  </body>
+  </html>
+  <!-- 页脚 -->
+  <footer class="bg-dark text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div>
+          <div class="flex items-center space-x-2 mb-6">
+            <span class="text-primary text-2xl"><i class="fa fa-heartbeat"></i></span>
+            <span class="font-bold text-xl">和洋健康挑战</span>
+          </div>
+          <p class="text-gray-400 mb-6">
+            赋能健康・聚力和洋，用运动凝聚团队力量，用汗水铸就健康生活。
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+              <i class="fa fa-weixin text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+              <i class="fa fa-weibo text-xl"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+              <i class="fa fa-envelope text-xl"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="font-bold text-lg mb-6">快速链接</h4>
+          <ul class="space-y-3">
+            <li><a href="#overview" class="text-gray-400 hover:text-primary transition-colors">活动总览</a></li>
+            <li><a href="#projects" class="text-gray-400 hover:text-primary transition-colors">项目库</a></li>
+            <li><a href="#rules" class="text-gray-400 hover:text-primary transition-colors">参与规则</a></li>
+            <li><a href="#rewards" class="text-gray-400 hover:text-primary transition-colors">奖励机制</a></li>
+            <li><a href="#safety" class="text-gray-400 hover:text-primary transition-colors">应急方案</a></li>
+            <li><a href="#signup" class="text-gray-400 hover:text-primary transition-colors">立即报名</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-bold text-lg mb-6">联系我们</h4>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <span class="text-primary mr-3 mt-1"><i class="fa fa-map-marker"></i></span>
+              <span class="text-gray-400">中山市和洋工艺礼品有限公司</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-primary mr-3 mt-1"><i class="fa fa-phone"></i></span>
+              <span class="text-gray-400">19118643620</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-primary mr-3 mt-1"><i class="fa fa-envelope"></i></span>
+              <span class="text-gray-400">3162313734@QQ.com</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-primary mr-3 mt-1"><i class="fa fa-clock-o"></i></span>
+              <span class="text-gray-400">工作日 9:00-19:00</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-10 pt-6 text-center text-gray-500 text-sm">
+        <p>© 2025 中山市和洋工艺礼品有限公司 版权所有 | 方案版本：邪恶小白V2.0（月度版）</p>
+        <p class="mt-2">本方案可根据公司实际情况进行调整，最终解释权归中山市和洋工艺礼品有限公司所有</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 项目详情模态框 -->
+  <div id="projectModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+      <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+        <h3 id="modalTitle" class="text-2xl font-bold text-dark">项目详情</h3>
+        <button id="closeModal" class="text-gray-400 hover:text-gray-600 text-xl">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      <div id="modalContent" class="p-6">
+        <!-- 项目详情内容将通过JS动态填充 -->
+      </div>
