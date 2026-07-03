@@ -971,9 +971,9 @@
   <!-- 近一年奖金数据查询 -->
   <section id="query" class="section-padding bg-white">
     <div class="container mx-auto px-4">
-      <h2 class="section-title"><span class="section-title-line">近一年数据查询</span></h2>
+      <h2 class="section-title"><span class="section-title-line">历史数据查询</span></h2>
       <p class="text-center text-dark/60 max-w-2xl mx-auto -mt-4 mb-10">
-        查询各部门近12个月的活动完成情况与核定奖金，数据持续更新中
+        查询各部门历史及规划月份的活动完成情况与核定奖金（2025年12月起，含2027年规划月份），数据持续更新中；尚未发生或未录入的月份显示为"/"
       </p>
 
       <!-- 筛选栏 -->
@@ -988,7 +988,7 @@
           <div class="md:col-span-1">
             <label class="block text-sm font-semibold text-dark mb-2">选择月份</label>
             <select id="queryMonth" class="form-input">
-              <option value="all">近12个月</option>
+              <option value="all">全部月份</option>
             </select>
           </div>
           <div class="md:col-span-2 flex flex-col sm:flex-row gap-3">
@@ -2187,11 +2187,114 @@
         { month: '2026-06', dept: '运营美工部', count: 2, detail: '羽毛球、匹克球', bonus: 500 },
 
         // ---- 2026年07月 ----
-        { month: '2026-06', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
-        { month: '2026-06', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
-        { month: '2026-06', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
-        { month: '2026-06', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-07', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-07', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-07', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-07', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2026年08月 ----
+        { month: '2026-08', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-08', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-08', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-08', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2026年09月 ----
+        { month: '2026-09', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-09', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-09', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-09', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2026年10月 ----
+        { month: '2026-10', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-10', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-10', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-10', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2026年11月 ----
+        { month: '2026-11', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-11', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-11', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-11', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2026年12月 ----
+        { month: '2026-12', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-12', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-12', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-12', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2027年01月 ----
+        { month: '2027-01', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-01', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-01', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-01', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2027年02月 ----
+        { month: '2027-02', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-02', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-02', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-02', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2027年03月 ----
+        { month: '2027-03', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-03', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-03', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-03', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2027年04月 ----
+        { month: '2027-04', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-04', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-04', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-04', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2027年05月 ----
+        { month: '2027-05', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-05', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-05', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-05', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2027年06月 ----
+        { month: '2027-06', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-06', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-06', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-06', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2027年07月 ----
+        { month: '2027-07', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-07', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-07', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-07', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2027年08月 ----
+        { month: '2027-08', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-08', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-08', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-08', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2027年09月 ----
+        { month: '2027-09', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-09', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-09', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-09', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2027年10月 ----
+        { month: '2027-10', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-10', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-10', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-10', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2027年11月 ----
+        { month: '2027-11', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-11', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-11', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-11', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2027年12月 ----
+        { month: '2027-12', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-12', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-12', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2027-12', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
       ];
+
       (function () {
         const monthLabel = (m) => {
           const [y, mm] = m.split('-');
