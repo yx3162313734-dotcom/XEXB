@@ -978,7 +978,7 @@
 
       <!-- 筛选栏 -->
       <div class="bg-gray-50 rounded-2xl shadow-md p-6 md:p-8 mb-10">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
           <div class="md:col-span-1">
             <label class="block text-sm font-semibold text-dark mb-2">选择部门</label>
             <select id="queryDept" class="form-input">
@@ -986,9 +986,15 @@
             </select>
           </div>
           <div class="md:col-span-1">
-            <label class="block text-sm font-semibold text-dark mb-2">选择月份</label>
-            <select id="queryMonth" class="form-input">
-              <option value="all">全部月份</option>
+            <label class="block text-sm font-semibold text-dark mb-2">起始月份</label>
+            <select id="queryStartMonth" class="form-input">
+              <option value="">不限</option>
+            </select>
+          </div>
+          <div class="md:col-span-1">
+            <label class="block text-sm font-semibold text-dark mb-2">结束月份</label>
+            <select id="queryEndMonth" class="form-input">
+              <option value="">不限</option>
             </select>
           </div>
           <div class="md:col-span-2 flex flex-col sm:flex-row gap-3">
@@ -999,6 +1005,14 @@
               <i class="fa fa-refresh mr-2"></i> 重置
             </button>
           </div>
+        </div>
+        <!-- 常用周期快捷选择 -->
+        <div class="flex flex-wrap items-center gap-2 mt-5 pt-5 border-t border-gray-200">
+          <span class="text-sm font-semibold text-dark/60 mr-1">快捷周期：</span>
+          <button type="button" class="query-preset-btn px-3.5 py-1.5 rounded-full text-sm font-medium border border-gray-300 text-dark/70 hover:border-primary hover:text-primary transition-colors" data-range="3">近3个月</button>
+          <button type="button" class="query-preset-btn px-3.5 py-1.5 rounded-full text-sm font-medium border border-gray-300 text-dark/70 hover:border-primary hover:text-primary transition-colors" data-range="6">近6个月</button>
+          <button type="button" class="query-preset-btn px-3.5 py-1.5 rounded-full text-sm font-medium border border-gray-300 text-dark/70 hover:border-primary hover:text-primary transition-colors" data-range="12">近12个月</button>
+          <button type="button" class="query-preset-btn px-3.5 py-1.5 rounded-full text-sm font-medium border border-gray-300 text-dark/70 hover:border-primary hover:text-primary transition-colors" data-range="all">全部周期</button>
         </div>
       </div>
 
@@ -1051,6 +1065,20 @@
         <div id="queryEmpty" class="hidden text-center text-dark/50 py-12">
           <i class="fa fa-inbox text-4xl mb-3 block"></i>
           没有找到匹配的记录，请调整筛选条件
+        </div>
+        <!-- 分页控件 -->
+        <div id="queryPagination" class="hidden flex flex-col sm:flex-row items-center justify-between gap-3 px-5 py-4 border-t border-gray-100">
+          <p class="text-sm text-dark/50">
+            共 <span id="pageTotalRecords">0</span> 条记录，第 <span id="pageCurrent">1</span> / <span id="pageTotal">1</span> 页
+          </p>
+          <div class="flex items-center gap-2">
+            <button id="pagePrevBtn" type="button" class="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-300 text-dark/60 hover:border-primary hover:text-primary disabled:opacity-40 disabled:hover:border-gray-300 disabled:hover:text-dark/60 disabled:cursor-not-allowed transition-colors">
+              <i class="fa fa-angle-left"></i>
+            </button>
+            <button id="pageNextBtn" type="button" class="w-9 h-9 flex items-center justify-center rounded-lg border border-gray-300 text-dark/60 hover:border-primary hover:text-primary disabled:opacity-40 disabled:hover:border-gray-300 disabled:hover:text-dark/60 disabled:cursor-not-allowed transition-colors">
+              <i class="fa fa-angle-right"></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -2301,17 +2329,30 @@
           return y + '年' + parseInt(mm, 10) + '月';
         };
 
-        // 按时间顺序去重的月份列表
+        // 按时间顺序去重的月份列表（升序）
         const months = [...new Set(QUERY_DATA.map(r => r.month))].sort();
+        const latestMonth = months[months.length - 1];
 
         const deptSelect = document.getElementById('queryDept');
-        const monthSelect = document.getElementById('queryMonth');
+        const startSelect = document.getElementById('queryStartMonth');
+        const endSelect = document.getElementById('queryEndMonth');
         const tbody = document.getElementById('queryTableBody');
         const emptyState = document.getElementById('queryEmpty');
         const sumRecords = document.getElementById('sumRecords');
         const sumProjects = document.getElementById('sumProjects');
         const sumBonus = document.getElementById('sumBonus');
         const sumAvg = document.getElementById('sumAvg');
+
+        // 分页相关元素
+        const paginationBar = document.getElementById('queryPagination');
+        const pageTotalRecordsEl = document.getElementById('pageTotalRecords');
+        const pageCurrentEl = document.getElementById('pageCurrent');
+        const pageTotalEl = document.getElementById('pageTotal');
+        const pagePrevBtn = document.getElementById('pagePrevBtn');
+        const pageNextBtn = document.getElementById('pageNextBtn');
+        const PAGE_SIZE = 10;
+        let currentPage = 1;
+        let currentRows = [];
 
         // 填充部门下拉框
         QUERY_DEPTS.forEach(d => {
@@ -2321,25 +2362,27 @@
           deptSelect.appendChild(opt);
         });
 
-        // 填充月份下拉框（按时间倒序展示，最新月份在前）
-        [...months].reverse().forEach(m => {
-          const opt = document.createElement('option');
-          opt.value = m;
-          opt.textContent = monthLabel(m);
-          monthSelect.appendChild(opt);
+        // 填充起始/结束月份下拉框（按时间正序展示，方便选取区间）
+        [startSelect, endSelect].forEach(sel => {
+          months.forEach(m => {
+            const opt = document.createElement('option');
+            opt.value = m;
+            opt.textContent = monthLabel(m);
+            sel.appendChild(opt);
+          });
         });
 
         let chartInstance = null;
 
-        function renderTable(rows) {
+        function renderTable(pageRows) {
           tbody.innerHTML = '';
-          if (rows.length === 0) {
+          if (pageRows.length === 0) {
             emptyState.classList.remove('hidden');
             return;
           }
           emptyState.classList.add('hidden');
 
-          rows.forEach(r => {
+          pageRows.forEach(r => {
             const tr = document.createElement('tr');
             tr.className = 'border-b border-gray-100 hover:bg-amber-50/40 transition-colors';
             const bonusText = r.bonus > 0 ? ('¥' + r.bonus.toFixed(2)) : '—';
@@ -2355,6 +2398,29 @@
           });
         }
 
+        // 渲染当前页 + 分页控件（根据 currentRows / currentPage 计算）
+        function renderPage() {
+          const total = currentRows.length;
+          const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+          if (currentPage > totalPages) currentPage = totalPages;
+          if (currentPage < 1) currentPage = 1;
+
+          const start = (currentPage - 1) * PAGE_SIZE;
+          const pageRows = currentRows.slice(start, start + PAGE_SIZE);
+          renderTable(pageRows);
+
+          if (total === 0) {
+            paginationBar.classList.add('hidden');
+            return;
+          }
+          paginationBar.classList.remove('hidden');
+          pageTotalRecordsEl.textContent = total;
+          pageCurrentEl.textContent = currentPage;
+          pageTotalEl.textContent = totalPages;
+          pagePrevBtn.disabled = currentPage <= 1;
+          pageNextBtn.disabled = currentPage >= totalPages;
+        }
+
         function renderSummary(rows) {
           const totalProjects = rows.reduce((s, r) => s + r.count, 0);
           const totalBonus = rows.reduce((s, r) => s + r.bonus, 0);
@@ -2366,8 +2432,8 @@
           sumAvg.textContent = '¥' + (totalBonus / activeMonths).toFixed(2);
         }
 
-        function renderChart(deptFilter) {
-          const labels = months.map(monthLabel);
+        function renderChart(deptFilter, rangeMonths) {
+          const labels = rangeMonths.map(monthLabel);
           let datasets;
 
           if (deptFilter === 'all') {
@@ -2375,7 +2441,7 @@
               const colors = ['#D97706', '#F59E0B', '#0EA5E9', '#10B981'];
               return {
                 label: d,
-                data: months.map(m => {
+                data: rangeMonths.map(m => {
                   const rec = QUERY_DATA.find(r => r.month === m && r.dept === d);
                   return rec ? rec.bonus : 0;
                 }),
@@ -2386,7 +2452,7 @@
           } else {
             datasets = [{
               label: deptFilter,
-              data: months.map(m => {
+              data: rangeMonths.map(m => {
                 const rec = QUERY_DATA.find(r => r.month === m && r.dept === deptFilter);
                 return rec ? rec.bonus : 0;
               }),
@@ -2412,7 +2478,7 @@
                 }
               },
               scales: {
-                x: { stacked: deptFilter === 'all' ? false : false },
+                x: { stacked: false },
                 y: {
                   beginAtZero: true,
                   ticks: { callback: (v) => '¥' + v }
@@ -2422,31 +2488,88 @@
           });
         }
 
-        function runQuery() {
+        function runQuery(resetPage) {
           const dept = deptSelect.value;
-          const month = monthSelect.value;
+          let start = startSelect.value;
+          let end = endSelect.value;
+
+          // 若起止都已选择但顺序反了，自动纠正，避免筛选不到数据
+          if (start && end && start > end) {
+            const tmp = start; start = end; end = tmp;
+            startSelect.value = start;
+            endSelect.value = end;
+          }
+
+          const rangeMonths = months.filter(m => (!start || m >= start) && (!end || m <= end));
 
           const rows = QUERY_DATA.filter(r => {
             const deptMatch = dept === 'all' || r.dept === dept;
-            const monthMatch = month === 'all' || r.month === month;
+            const monthMatch = (!start || r.month >= start) && (!end || r.month <= end);
             return deptMatch && monthMatch;
           }).sort((a, b) => a.month.localeCompare(b.month) || a.dept.localeCompare(b.dept));
 
-          renderTable(rows);
+          currentRows = rows;
+          if (resetPage !== false) currentPage = 1;
+
+          renderPage();
           renderSummary(rows);
-          renderChart(dept);
+          renderChart(dept, rangeMonths.length ? rangeMonths : months);
         }
 
-        document.getElementById('queryBtn').addEventListener('click', runQuery);
+        // 快捷周期按钮：近3/6/12个月 与 全部周期
+        document.querySelectorAll('.query-preset-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const range = btn.dataset.range;
+            document.querySelectorAll('.query-preset-btn').forEach(b => {
+              b.classList.remove('border-primary', 'text-primary', 'bg-amber-50');
+            });
+            btn.classList.add('border-primary', 'text-primary', 'bg-amber-50');
+
+            if (range === 'all') {
+              startSelect.value = '';
+              endSelect.value = '';
+            } else {
+              const n = parseInt(range, 10);
+              const idx = months.indexOf(latestMonth);
+              const startIdx = Math.max(0, idx - (n - 1));
+              startSelect.value = months[startIdx];
+              endSelect.value = latestMonth;
+            }
+            runQuery();
+          });
+        });
+
+        document.getElementById('queryBtn').addEventListener('click', () => runQuery());
         document.getElementById('queryResetBtn').addEventListener('click', () => {
           deptSelect.value = 'all';
-          monthSelect.value = 'all';
+          startSelect.value = '';
+          endSelect.value = '';
+          document.querySelectorAll('.query-preset-btn').forEach(b => {
+            b.classList.remove('border-primary', 'text-primary', 'bg-amber-50');
+          });
           runQuery();
         });
         deptSelect.addEventListener('change', runQuery);
-        monthSelect.addEventListener('change', runQuery);
+        startSelect.addEventListener('change', runQuery);
+        endSelect.addEventListener('change', runQuery);
 
-        // 初始加载：展示全部部门 / 近12个月数据
+        pagePrevBtn.addEventListener('click', () => {
+          if (currentPage > 1) { currentPage--; renderPage(); }
+        });
+        pageNextBtn.addEventListener('click', () => {
+          const totalPages = Math.max(1, Math.ceil(currentRows.length / PAGE_SIZE));
+          if (currentPage < totalPages) { currentPage++; renderPage(); }
+        });
+
+        // 初始加载：默认展示近6个月，避免表格一次性展开过长；可通过快捷按钮或自定义月份切换
+        (function initDefaultRange() {
+          const idx = months.indexOf(latestMonth);
+          const startIdx = Math.max(0, idx - 5);
+          startSelect.value = months[startIdx];
+          endSelect.value = latestMonth;
+          const defaultBtn = document.querySelector('.query-preset-btn[data-range="6"]');
+          if (defaultBtn) defaultBtn.classList.add('border-primary', 'text-primary', 'bg-amber-50');
+        })();
         runQuery();
       })();
     </script>
