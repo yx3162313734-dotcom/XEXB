@@ -265,6 +265,7 @@
         <a href="#projects" class="text-slate-600 hover:text-primary transition-colors font-medium text-sm tracking-wide">项目库</a>
         <a href="#rules" class="text-slate-600 hover:text-primary transition-colors font-medium text-sm tracking-wide">参与规则</a>
         <a href="#rewards" class="text-slate-600 hover:text-primary transition-colors font-medium text-sm tracking-wide">奖励机制</a>
+        <a href="#query" class="text-slate-600 hover:text-primary transition-colors font-medium text-sm tracking-wide">数据查询</a>
         <a href="#safety" class="text-slate-600 hover:text-primary transition-colors font-medium text-sm tracking-wide">应急方案</a>
         <a href="#signup" class="bg-primary text-white px-5 py-2 rounded-full hover:bg-primary/90 transition-colors font-semibold text-sm tracking-wide shadow-sm">立即报名</a>
       </nav>
@@ -282,6 +283,7 @@
         <a href="#projects" class="text-dark/80 hover:text-primary py-2 transition-colors">项目库</a>
         <a href="#rules" class="text-dark/80 hover:text-primary py-2 transition-colors">参与规则</a>
         <a href="#rewards" class="text-dark/80 hover:text-primary py-2 transition-colors">奖励机制</a>
+        <a href="#query" class="text-dark/80 hover:text-primary py-2 transition-colors">数据查询</a>
         <a href="#safety" class="text-dark/80 hover:text-primary py-2 transition-colors">应急方案</a>
         <a href="#signup" class="bg-primary text-white px-5 py-2 rounded-full text-center hover:bg-primary/90 transition-colors">立即报名</a>
       </div>
@@ -960,6 +962,95 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- 近一年奖金数据查询 -->
+  <section id="query" class="section-padding bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="section-title"><span class="section-title-line">近一年数据查询</span></h2>
+      <p class="text-center text-dark/60 max-w-2xl mx-auto -mt-4 mb-10">
+        查询各部门近12个月的活动完成情况与核定奖金，数据持续更新中
+      </p>
+
+      <!-- 筛选栏 -->
+      <div class="bg-gray-50 rounded-2xl shadow-md p-6 md:p-8 mb-10">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+          <div class="md:col-span-1">
+            <label class="block text-sm font-semibold text-dark mb-2">选择部门</label>
+            <select id="queryDept" class="form-input">
+              <option value="all">全部部门</option>
+            </select>
+          </div>
+          <div class="md:col-span-1">
+            <label class="block text-sm font-semibold text-dark mb-2">选择月份</label>
+            <select id="queryMonth" class="form-input">
+              <option value="all">近12个月</option>
+            </select>
+          </div>
+          <div class="md:col-span-2 flex flex-col sm:flex-row gap-3">
+            <button id="queryBtn" type="button" class="btn-primary text-white font-semibold py-3 px-6 rounded-xl flex items-center justify-center flex-1">
+              <i class="fa fa-search mr-2"></i> 查询
+            </button>
+            <button id="queryResetBtn" type="button" class="border border-gray-300 text-dark/70 font-semibold py-3 px-6 rounded-xl hover:border-primary hover:text-primary transition-colors flex items-center justify-center flex-1">
+              <i class="fa fa-refresh mr-2"></i> 重置
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 汇总卡片 -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10" id="querySummary">
+        <div class="bg-white p-5 rounded-xl shadow-md text-center card-hover border border-gray-100">
+          <span id="sumRecords" class="text-2xl md:text-3xl font-bold text-primary block mb-1">0</span>
+          <p class="text-dark/60 text-sm">匹配记录数</p>
+        </div>
+        <div class="bg-white p-5 rounded-xl shadow-md text-center card-hover border border-gray-100">
+          <span id="sumProjects" class="text-2xl md:text-3xl font-bold text-primary block mb-1">0</span>
+          <p class="text-dark/60 text-sm">累计完成项数</p>
+        </div>
+        <div class="bg-white p-5 rounded-xl shadow-md text-center card-hover border border-gray-100">
+          <span id="sumBonus" class="text-2xl md:text-3xl font-bold text-primary block mb-1">¥0</span>
+          <p class="text-dark/60 text-sm">累计核定奖金</p>
+        </div>
+        <div class="bg-white p-5 rounded-xl shadow-md text-center card-hover border border-gray-100">
+          <span id="sumAvg" class="text-2xl md:text-3xl font-bold text-primary block mb-1">¥0</span>
+          <p class="text-dark/60 text-sm">月均奖金</p>
+        </div>
+      </div>
+
+      <!-- 趋势图 -->
+      <div class="bg-white rounded-2xl shadow-md p-6 md:p-8 mb-10 border border-gray-100">
+        <h3 class="text-lg font-bold text-dark mb-4">月度核定奖金趋势</h3>
+        <div class="relative" style="height: 300px;">
+          <canvas id="queryChart"></canvas>
+        </div>
+      </div>
+
+      <!-- 数据表格 -->
+      <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse min-w-[720px]">
+            <thead>
+              <tr class="bg-primary text-white">
+                <th class="py-4 px-5 font-semibold text-sm">月份</th>
+                <th class="py-4 px-5 font-semibold text-sm">部门类别</th>
+                <th class="py-4 px-5 font-semibold text-sm">活动完成项数</th>
+                <th class="py-4 px-5 font-semibold text-sm">已完成活动明细</th>
+                <th class="py-4 px-5 font-semibold text-sm text-right">核定奖金（元）</th>
+              </tr>
+            </thead>
+            <tbody id="queryTableBody">
+              <!-- JS 动态填充 -->
+            </tbody>
+          </table>
+        </div>
+        <div id="queryEmpty" class="hidden text-center text-dark/50 py-12">
+          <i class="fa fa-inbox text-4xl mb-3 block"></i>
+          没有找到匹配的记录，请调整筛选条件
         </div>
       </div>
     </div>
@@ -2046,6 +2137,212 @@
       });
       updateCheckboxStates();
     </script>
+    <script>
+      // ============ 近一年（12个月）奖金数据查询模块 ============
+      // 数据来源：各月《赋能健康・聚力和洋》核定奖金统计表
+      // "/" 表示当月未完成任何项目，无核定奖金
+      const QUERY_DEPTS = ['外贸销售一部', '外贸销售二部', '国内销售物流部', '运营美工部'];
+
+      const QUERY_DATA = [
+        // ---- 2025年12月 ----
+        { month: '2025-12', dept: '外贸销售一部', count: 4, detail: '羽毛球运动、户外露营活动、登山活动、团体体操训练', bonus: 1500 },
+        { month: '2025-12', dept: '外贸销售二部', count: 4, detail: '羽毛球运动、户外露营活动、登山活动、团体体操训练', bonus: 1500 },
+        { month: '2025-12', dept: '国内销售物流部', count: 4, detail: '羽毛球运动、户外露营活动、登山活动、团体体操训练', bonus: 1500 },
+        { month: '2025-12', dept: '运营美工部', count: 3, detail: '羽毛球运动、户外露营活动、登山活动', bonus: 1000 },
+
+        // ---- 2026年01月 ----
+        { month: '2026-01', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-01', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-01', dept: '国内销售物流部', count: 2, detail: '羽毛球运动、乒乓球运动', bonus: 500 },
+        { month: '2026-01', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2026年02月 ----
+        { month: '2026-02', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-02', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-02', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-02', dept: '运营美工部', count: 0, detail: '—', bonus: 0 },
+
+        // ---- 2026年03月 ----
+        { month: '2026-03', dept: '外贸销售一部', count: 4, detail: '体操、羽毛球、飞盘、露营', bonus: 1500 },
+        { month: '2026-03', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-03', dept: '国内销售物流部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-03', dept: '运营美工部', count: 2, detail: '羽毛球、体操', bonus: 500 },
+
+        // ---- 2026年04月 ----
+        { month: '2026-04', dept: '外贸销售一部', count: 2, detail: '羽毛球、露营', bonus: 500 },
+        { month: '2026-04', dept: '外贸销售二部', count: 4, detail: '羽毛球、飞盘、露营、体操', bonus: 1500 },
+        { month: '2026-04', dept: '国内销售物流部', count: 3, detail: '羽毛球、飞盘、露营', bonus: 1000 },
+        { month: '2026-04', dept: '运营美工部', count: 2, detail: '羽毛球、露营', bonus: 500 },
+
+        // ---- 2026年05月 ----
+        { month: '2026-05', dept: '外贸销售一部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-05', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-05', dept: '国内销售物流部', count: 2, detail: '羽毛球、体操', bonus: 500 },
+        { month: '2026-05', dept: '运营美工部', count: 1, detail: '羽毛球', bonus: 0 },
+
+        // ---- 2026年06月 ----
+        { month: '2026-06', dept: '外贸销售一部', count: 3, detail: '羽毛球、乒乓球、匹克球', bonus: 1000 },
+        { month: '2026-06', dept: '外贸销售二部', count: 0, detail: '—', bonus: 0 },
+        { month: '2026-06', dept: '国内销售物流部', count: 2, detail: '羽毛球、乒乓球', bonus: 500 },
+        { month: '2026-06', dept: '运营美工部', count: 2, detail: '羽毛球、匹克球', bonus: 500 },
+      ];
+
+      (function () {
+        const monthLabel = (m) => {
+          const [y, mm] = m.split('-');
+          return y + '年' + parseInt(mm, 10) + '月';
+        };
+
+        // 按时间顺序去重的月份列表
+        const months = [...new Set(QUERY_DATA.map(r => r.month))].sort();
+
+        const deptSelect = document.getElementById('queryDept');
+        const monthSelect = document.getElementById('queryMonth');
+        const tbody = document.getElementById('queryTableBody');
+        const emptyState = document.getElementById('queryEmpty');
+        const sumRecords = document.getElementById('sumRecords');
+        const sumProjects = document.getElementById('sumProjects');
+        const sumBonus = document.getElementById('sumBonus');
+        const sumAvg = document.getElementById('sumAvg');
+
+        // 填充部门下拉框
+        QUERY_DEPTS.forEach(d => {
+          const opt = document.createElement('option');
+          opt.value = d;
+          opt.textContent = d;
+          deptSelect.appendChild(opt);
+        });
+
+        // 填充月份下拉框（按时间倒序展示，最新月份在前）
+        [...months].reverse().forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m;
+          opt.textContent = monthLabel(m);
+          monthSelect.appendChild(opt);
+        });
+
+        let chartInstance = null;
+
+        function renderTable(rows) {
+          tbody.innerHTML = '';
+          if (rows.length === 0) {
+            emptyState.classList.remove('hidden');
+            return;
+          }
+          emptyState.classList.add('hidden');
+
+          rows.forEach(r => {
+            const tr = document.createElement('tr');
+            tr.className = 'border-b border-gray-100 hover:bg-amber-50/40 transition-colors';
+            const bonusText = r.bonus > 0 ? ('¥' + r.bonus.toFixed(2)) : '—';
+            const countText = r.count > 0 ? (r.count + ' 项') : '/';
+            tr.innerHTML = `
+              <td class="py-3.5 px-5 text-sm text-dark/80 whitespace-nowrap">${monthLabel(r.month)}</td>
+              <td class="py-3.5 px-5 text-sm font-medium text-dark whitespace-nowrap">${r.dept}</td>
+              <td class="py-3.5 px-5 text-sm text-dark/80">${countText}</td>
+              <td class="py-3.5 px-5 text-sm text-dark/70">${r.detail}</td>
+              <td class="py-3.5 px-5 text-sm font-semibold text-primary text-right whitespace-nowrap">${bonusText}</td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+
+        function renderSummary(rows) {
+          const totalProjects = rows.reduce((s, r) => s + r.count, 0);
+          const totalBonus = rows.reduce((s, r) => s + r.bonus, 0);
+          const activeMonths = new Set(rows.map(r => r.month)).size || 1;
+
+          sumRecords.textContent = rows.length;
+          sumProjects.textContent = totalProjects;
+          sumBonus.textContent = '¥' + totalBonus.toFixed(2);
+          sumAvg.textContent = '¥' + (totalBonus / activeMonths).toFixed(2);
+        }
+
+        function renderChart(deptFilter) {
+          const labels = months.map(monthLabel);
+          let datasets;
+
+          if (deptFilter === 'all') {
+            datasets = QUERY_DEPTS.map((d, i) => {
+              const colors = ['#D97706', '#F59E0B', '#0EA5E9', '#10B981'];
+              return {
+                label: d,
+                data: months.map(m => {
+                  const rec = QUERY_DATA.find(r => r.month === m && r.dept === d);
+                  return rec ? rec.bonus : 0;
+                }),
+                backgroundColor: colors[i % colors.length],
+                borderRadius: 4,
+              };
+            });
+          } else {
+            datasets = [{
+              label: deptFilter,
+              data: months.map(m => {
+                const rec = QUERY_DATA.find(r => r.month === m && r.dept === deptFilter);
+                return rec ? rec.bonus : 0;
+              }),
+              backgroundColor: '#D97706',
+              borderRadius: 4,
+            }];
+          }
+
+          const ctx = document.getElementById('queryChart').getContext('2d');
+          if (chartInstance) chartInstance.destroy();
+          chartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: { labels, datasets },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: { display: true, position: 'bottom' },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => ctx.dataset.label + '：¥' + ctx.parsed.y.toFixed(2)
+                  }
+                }
+              },
+              scales: {
+                x: { stacked: deptFilter === 'all' ? false : false },
+                y: {
+                  beginAtZero: true,
+                  ticks: { callback: (v) => '¥' + v }
+                }
+              }
+            }
+          });
+        }
+
+        function runQuery() {
+          const dept = deptSelect.value;
+          const month = monthSelect.value;
+
+          const rows = QUERY_DATA.filter(r => {
+            const deptMatch = dept === 'all' || r.dept === dept;
+            const monthMatch = month === 'all' || r.month === month;
+            return deptMatch && monthMatch;
+          }).sort((a, b) => a.month.localeCompare(b.month) || a.dept.localeCompare(b.dept));
+
+          renderTable(rows);
+          renderSummary(rows);
+          renderChart(dept);
+        }
+
+        document.getElementById('queryBtn').addEventListener('click', runQuery);
+        document.getElementById('queryResetBtn').addEventListener('click', () => {
+          deptSelect.value = 'all';
+          monthSelect.value = 'all';
+          runQuery();
+        });
+        deptSelect.addEventListener('change', runQuery);
+        monthSelect.addEventListener('change', runQuery);
+
+        // 初始加载：展示全部部门 / 近12个月数据
+        runQuery();
+      })();
+    </script>
+
   </body>
   </html>
   <!-- 页脚 -->
